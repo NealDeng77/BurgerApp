@@ -51,7 +51,7 @@ class ContactData extends Component {
             deliveryMethod: {
                 elementType: 'select',
                 elementConfig: {
-                    option: [
+                    options: [
                         {value: 'fastest', displayValue: 'Fastest'},
                         {value: 'standard', displayValue: 'Standard'},
                         ]
@@ -83,9 +83,29 @@ class ContactData extends Component {
             });
     }
     
+    inputChangedHandler = (event, inputIdentifier) => {
+        //copy the orderForm, not a deep copy, still point to the
+        //same object
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        }
+        //deep copy the first level nested object of the orderForm
+        //such as 'elementType' and 'value'
+        //because we only want to change the value, so deep copy to
+        //this level is enough.
+        //If we want to change the elementConfig
+        //we need to updatedElementConfig = {...updatedOrderForm[inputIdentifier].elementConfig}
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        }
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm: updatedOrderForm});
+    }
+
     render() {
         const formElementsArray = [];
-        for (let key in this.state.order) {
+        for (let key in this.state.orderForm) {
             formElementsArray.push({
                 id: key,
                 config: this.state.orderForm[key]
@@ -99,7 +119,8 @@ class ContactData extends Component {
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value} />
+                        value={formElement.config.value} 
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
