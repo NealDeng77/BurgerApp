@@ -11,7 +11,7 @@ const Input = (props) => {
         case ('textarea'):
             inputElement = <textarea className={classes.inputElement} {...props.elementConfig} value={props.value}/>;
             break;
-        default:value={props.value}
+        default:
             inputElement = <input className={classes.inputElement} {...props.elementConfig} value={props.value}/>;
     }
     return (
