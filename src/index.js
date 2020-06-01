@@ -1,21 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import reducer from './store/reducer';
+// import registerServiceWorker from './registerServiceWorker';
 
 
+// ReactDOM.render(
+//   <BrowserRouter>
+//     <React.StrictMode>
+//       <App />
+//     </React.StrictMode>
+//   </BrowserRouter>
+// ,
+//   document.getElementById('root')
+// );
 
-ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
+const store = createStore(reducer);
+const app = (
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </React.StrictMode>
-  </BrowserRouter>
-,
-  document.getElementById('root')
-);
+    </BrowserRouter>
+  </Provider>
+
+)
+
+ReactDOM.render( app, document.getElementById( 'root' ));
+// registerServiceWorker();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
