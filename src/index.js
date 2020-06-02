@@ -9,7 +9,6 @@ import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducer';
 // import registerServiceWorker from './registerServiceWorker';
 
-
 // ReactDOM.render(
 //   <BrowserRouter>
 //     <React.StrictMode>
@@ -27,7 +26,6 @@ const app = (
       <App />
     </BrowserRouter>
   </Provider>
-
 )
 
 ReactDOM.render( app, document.getElementById( 'root' ));
